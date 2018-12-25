@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import * as path from "path";
 import * as fs from "fs-extra";
 import totime = require("to-time");
@@ -19,6 +20,13 @@ export function etcdir(name?: string) {
 
 export function ensureDir(dir) {
   return fs.ensureDirSync(dir);
+}
+
+export function envs() {
+  return _.transform(process.env, (result: Object, value, key) => {
+    result[_.toLower(key)] = value;
+    return result;
+  }, {});
 }
 
 export function schedule(interval, fn, done?: JobComplete): Job {

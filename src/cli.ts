@@ -3,6 +3,7 @@ import program = require("caporal");
 import * as pino from "pino";
 import { schedule } from "./updater";
 import * as logs from "./logs";
+import { envs } from "./utils";
 
 const pkg = require('../package');
 
@@ -46,6 +47,7 @@ export function cli(argv: any) {
     .action(async function(args, opts, log) {
       const level = _.get(log, "transports.caporal.level", "info");
       const logger = logs.create({ level });
+      opts = _.merge(opts, envs());
       try {
         await schedule(opts.file, { ...opts, listener: buildScheduleListener(logger) }, logger);
       } catch (e) {
