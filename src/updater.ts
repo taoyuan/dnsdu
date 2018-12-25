@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import { execute } from "dnsm";
 import * as path from "path";
 import * as logs from "./logs";
@@ -28,10 +29,8 @@ export async function schedule(file: string, opts?: ScheduleOptions | Logger, lo
     opts = undefined;
   }
 
-  opts = <ScheduleOptions>Object.assign({ ttl: 300 }, opts);
+  opts = <ScheduleOptions>Object.assign({ ttl: 300 }, _.pickBy(opts, _.identity));
   logger = logger || logs.logger;
-
-  logger.info('Schedule', {conf: file, ...opts});
 
   const listener = opts.listener || (() => {});
 

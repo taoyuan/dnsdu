@@ -16,12 +16,13 @@ function handleError(err, logger) {
   process.exit(1);
 }
 
-function buildScheduleListener(logger, checkpoint = 60) {
+function buildScheduleListener(logger, checkinterval) {
+  checkinterval = checkinterval || 60;
   let numcheck = 0;
   return (event, data) => {
     if (event === "check") {
       logger.trace(`check ${data.current} |`, data.previous);
-      if (++numcheck === checkpoint) {
+      if (++numcheck === checkinterval) {
         logger.debug(`checked ${numcheck} times ${data.current} |`, data.previous);
         numcheck = 0;
       }
@@ -43,13 +44,18 @@ export function cli(argv: any) {
     .description("Update DNS record dynamic")
     .option("-i, --interval <interval>", "Specify the interval in textual time like: 1h, 2m, 3s, 4ms", program.STRING, '')
     .option("-f, --file <file>", "Specify the domain entries file", program.STRING, '')
-    .option("-h, --host <hostfile>", "Specify the cache host file", program.STRING, '')
+    .option("-h, --hostfile <hostfile>", "Specify the cache host file", program.STRING, '')
+    .option("-k, --checkinterval <checkinterval>", "Specify checking info interval", program.INT)
     .action(async function(args, opts, log) {
       const level = _.get(log, "transports.caporal.level", "info");
       const logger = logs.create({ level });
-      opts = _.merge(opts, envs());
+
+      const names = _.keys(opts);
+      opts = _.pick(_.merge(opts, envs()), names);
+      opts = _.pickBy(opts, _.identity);
       try {
-        await schedule(opts.file, { ...opts, listener: buildScheduleListener(logger) }, logger);
+        logger.info('Schedule ', _.pickBy({conf: opts.file, ...opts}, _.identity));
+        await schedule(opts.file, { ...opts, listener: buildScheduleListener(logger, opts.checkinterval) }, logger);
       } catch (e) {
         handleError(e, logger);
       }
