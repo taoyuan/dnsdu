@@ -1,6 +1,6 @@
 {
   "name": "dnsdu",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "dnsdu",
   "license": "MIT",
   "repository": "",
@@ -36,7 +36,6 @@
     "dnsm": "^0.1.3",
     "external-ip": "^2.1.1",
     "fs-extra": "^7.0.1",
-    "ipily": "^1.0.0",
     "lodash": "^4.17.11",
     "pino": "^5.10.5",
     "pino-pretty": "^2.5.0",

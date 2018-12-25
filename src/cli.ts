@@ -17,13 +17,13 @@ function handleError(err, logger) {
 }
 
 function buildScheduleListener(logger, checkinterval) {
-  checkinterval = checkinterval || 60;
+  checkinterval = parseInt(checkinterval || 60);
   let numcheck = 0;
   return (event, data) => {
     if (event === "check") {
       logger.trace(`check ${data.current} |`, data.previous);
       if (++numcheck === checkinterval) {
-        logger.debug(`checked ${numcheck} times ${data.current} |`, data.previous);
+        logger.info(`check ${numcheck} times ${data.current} |`, data.previous);
         numcheck = 0;
       }
     } else if (event === "before updyn") {
