@@ -25,7 +25,10 @@
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean && echo Using TypeScript && tsc --version",
     "build": "tsc --pretty",
-    "test": "npm run build && nyc mocha --require ts-node/register --recursive \"test/**/*.test.ts\""
+    "test": "npm run build && nyc mocha --require ts-node/register --recursive \"test/**/*.test.ts\"",
+    "docker-build": "dopkg && docker build -t dnsdu/dnsdu:latest .",
+    "docker-push": "docker push dnsdu/dnsdu:latest",
+    "docker-all": "npm run docker-build && npm run docker-push"
   },
   "dependencies": {
     "async-retry": "^1.2.3",
@@ -51,6 +54,7 @@
     "@types/sinon": "^7.0.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "dopkg": "^1.0.0",
     "isip": "0.0.1",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",

@@ -6,3 +6,5 @@ npm-debug.log
 *.iml
 lib/
 host.json
+.pkg-cache
+*.bin

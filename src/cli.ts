@@ -1,8 +1,10 @@
 import * as _ from "lodash";
 import program = require("caporal");
-import { schedule } from "./updater";
 import * as pino from "pino";
+import { schedule } from "./updater";
 import * as logs from "./logs";
+
+const pkg = require('../package');
 
 function handleError(err, logger) {
   logger.error(err.message || err);
@@ -36,15 +38,16 @@ function buildScheduleListener(logger, checkpoint = 60) {
 
 export function cli(argv: any) {
   program
-    .description("Dynamic update DNS record")
-    .option("-i, --interval", "Specify the interval in textual time like: 1h, 2m, 3s, 4ms")
-    .option("-c, --conf", "Specify the domain entries file")
-    .option("-h, --host", "Specify the cache host file")
+    .version(pkg.version)
+    .description("Update DNS record dynamic")
+    .option("-i, --interval <interval>", "Specify the interval in textual time like: 1h, 2m, 3s, 4ms", program.STRING, '')
+    .option("-f, --file <file>", "Specify the domain entries file", program.STRING, '')
+    .option("-h, --host <hostfile>", "Specify the cache host file", program.STRING, '')
     .action(async function(args, opts, log) {
       const level = _.get(log, "transports.caporal.level", "info");
       const logger = logs.create({ level });
       try {
-        await schedule(opts.conf, { ...opts, listener: buildScheduleListener(logger) }, logger);
+        await schedule(opts.file, { ...opts, listener: buildScheduleListener(logger) }, logger);
       } catch (e) {
         handleError(e, logger);
       }

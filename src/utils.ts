@@ -2,8 +2,8 @@ import * as path from "path";
 import * as fs from "fs-extra";
 import totime = require("to-time");
 
-const APPNAME = require("../package").name;
-const APPDATA = process.env.APPDATA || (process.platform == "darwin" ? path.join(process.env.HOME || "", "Library/Preferences") : "/etc");
+export const APPNAME = require('../package').name;
+export const APPDATA = process.env.APPDATA || (process.platform == "darwin" ? path.join(process.env.HOME || "", "Library/Preferences") : "/etc");
 
 export interface Job {
   cancel();

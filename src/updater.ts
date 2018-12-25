@@ -2,8 +2,10 @@ import { execute } from "dnsm";
 import * as path from "path";
 import * as logs from "./logs";
 import { Grabber } from "./grabber";
+import { APPNAME, etcdir } from "./utils";
 
 const DEFAULT_INTERVAL = '1m'; // 1 minute
+const DEFAULT_FILE = path.join(etcdir(), `${APPNAME}.yml`);
 
 // for dns record
 export interface RecordOptions {
@@ -20,6 +22,7 @@ export interface ScheduleOptions extends RecordOptions {
 export async function schedule(file: string, opts?: ScheduleOptions, logger?);
 export async function schedule(file: string, logger?);
 export async function schedule(file: string, opts?: ScheduleOptions | Logger, logger?) {
+  file = file || DEFAULT_FILE;
   if (opts && (typeof (<Logger>opts).debug === 'function')) {
     logger = <Logger> opts;
     opts = undefined;
@@ -27,6 +30,8 @@ export async function schedule(file: string, opts?: ScheduleOptions | Logger, lo
 
   opts = <ScheduleOptions>Object.assign({ ttl: 300 }, opts);
   logger = logger || logs.logger;
+
+  logger.info('Schedule', {conf: file, ...opts});
 
   const listener = opts.listener || (() => {});
 
