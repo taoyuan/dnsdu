@@ -1,4 +1,4 @@
 # dnsdu
 
-> DNS Dynamic Updater
+> A DNS Dynamic Updater
 
