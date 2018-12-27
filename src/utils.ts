@@ -2,6 +2,8 @@ import * as _ from "lodash";
 import * as path from "path";
 import * as fs from "fs-extra";
 import totime = require("to-time");
+import dateformat = require("dateformat");
+import { DATE_FORMAT } from "./logs";
 
 export const APPNAME = require('../package').name;
 export const APPDATA = process.env.APPDATA || (process.platform == "darwin" ? path.join(process.env.HOME || "", "Library/Preferences") : "/etc");
@@ -67,4 +69,17 @@ export function schedule(interval, fn, done?: JobComplete): Job {
   }
 
   return job;
+}
+
+export function formatDate(time: number | string | Date, format) {
+  if (typeof time === 'number') {
+    time = new Date(time);
+  } else if (typeof time === 'string') {
+    time = Date.parse(time);
+  }
+  return dateformat(time, format);
+}
+
+export function transformTimestamp(obj, tsname = 'ts') {
+  return _.updateWith(obj, tsname, ts => formatDate(ts, DATE_FORMAT));
 }

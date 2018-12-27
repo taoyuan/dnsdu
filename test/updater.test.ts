@@ -8,7 +8,7 @@ import { assert } from "chai";
 
 process.env.DNSM_MOCK_TOKEN = process.env.DNSM_MOCK_TOKEN || 'dnsm-mock-token';
 
-describe.only("updater", function() {
+describe("updater", function() {
   this.timeout(5000);
 
   let stubCreateProvider, stubEnvToken;

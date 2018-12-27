@@ -1,9 +1,11 @@
 import * as _ from "lodash";
-import program = require("caporal");
 import * as pino from "pino";
+import * as dateformat from "dateformat";
+import program = require("caporal");
 import { schedule } from "./updater";
 import * as logs from "./logs";
-import { envs } from "./utils";
+import { envs, formatDate, transformTimestamp } from "./utils";
+import { DATE_FORMAT } from "./logs";
 
 const pkg = require('../package');
 
@@ -20,14 +22,20 @@ function buildScheduleListener(logger, checkinterval) {
   checkinterval = parseInt(checkinterval || 60);
   let numcheck = 0;
   return (event, data) => {
+
+    let previous = '';
+    if (data && data.previous) {
+      previous = transformTimestamp(_.clone(data.previous));
+    }
+
     if (event === "check") {
-      logger.trace(`check ${data.current} |`, data.previous);
+      logger.trace(`checked. current ip: ${data.current} | previous: `, previous);
       if (++numcheck === checkinterval) {
-        logger.info(`check ${numcheck} times ${data.current} |`, data.previous);
+        logger.info(`checked (${numcheck}) ${data.current} =`, previous);
         numcheck = 0;
       }
     } else if (event === "before updyn") {
-      logger.info(`Update ${data.current} |`, data.previous);
+      logger.info(`Update ${data.current} <-`, previous);
     } else if (event === "after updyn") {
       logger.info(`Updated ${data.current}`);
     } else if (event === "complete") {
