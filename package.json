@@ -1,6 +1,6 @@
 {
   "name": "dnsdu",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A DNS Dynamic Updater",
   "license": "MIT",
   "repository": "https://github.com/taoyuan/dnsdu",
