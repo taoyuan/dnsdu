@@ -1,11 +1,9 @@
 import * as _ from "lodash";
 import * as pino from "pino";
-import * as dateformat from "dateformat";
 import program = require("caporal");
 import { schedule } from "./updater";
 import * as logs from "./logs";
-import { envs, formatDate, transformTimestamp } from "./utils";
-import { DATE_FORMAT } from "./logs";
+import { envs, transformTimestamp } from "./utils";
 
 const pkg = require('../package');
 

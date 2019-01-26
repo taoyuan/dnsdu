@@ -13,7 +13,7 @@ describe("utils", () => {
 
   });
 
-  it.only("should transform timestamp", () => {
+  it("should transform timestamp", () => {
     const expected = {ip: '1.1.1.1', ts: '2018-12-27 15:13:44', handled: true};
     const data = {ip: '1.1.1.1', ts: 1545894824742, handled: true};
     assert.deepEqual(transformTimestamp(data), expected);

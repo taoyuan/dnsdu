@@ -35,15 +35,15 @@ describe("updater", function() {
         "example.com",
         '1234567890'
       ]],
-      ["updyn", ["", {
+      ["update", ["", {
         name: "n1.example.com",
-        type: undefined,
+        type: 'A',
         ttl: 300,
         content: "1.1.1.1"
       }]],
-      ["updyn", ["", {
+      ["update", ["", {
         name: "n2.example.com",
-        type: undefined,
+        type: 'A',
         ttl: 300,
         content: "1.1.1.1"
       }]]

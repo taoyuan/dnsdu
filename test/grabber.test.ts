@@ -16,7 +16,7 @@ describe("grabber", function() {
 
     it("should throw ECONNREFUSED for invalid service", async () => {
       const g = Grabber.create({ timeout: 100, services: ["http://localhost/invalid"] });
-      assert.isRejected(g.grab(1), /ECONNREFUSED/);
+      await assert.isRejected(g.grab(1), /Got invalid IP/);
     });
 
     it("should callback ip when it changed", (done) => {

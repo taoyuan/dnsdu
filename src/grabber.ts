@@ -148,11 +148,7 @@ export class Grabber extends EventEmitter {
 
   async grab(retries?: number) {
     retries = retries || 0;
-    try {
-      return await retry(() => this._fetchip(), { retries });
-    } catch (e) {
-      throw e;
-    }
+    return await retry(() => this._fetchip(), { retries });
   }
 
 }
