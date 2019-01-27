@@ -56,6 +56,8 @@ export function cli(argv: any) {
       const level = _.get(log, "transports.caporal.level", "info");
       const logger = logs.create({ level });
 
+      logger.info(`Starting ${pkg.name} ${pkg.version}`);
+
       const names = _.keys(opts);
       opts = _.pick(_.merge(opts, envs()), names);
       opts = _.pickBy(opts, _.identity);

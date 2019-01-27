@@ -1,6 +1,6 @@
 import * as chai from "chai";
 import * as chaiAsPromised from "chai-as-promised";
-import { Provider, ProviderOptions, Logger } from "dnsm";
+import { Provider, ProviderOptions, Logger } from "namex";
 
 // import * as sinon from "sinon";
 

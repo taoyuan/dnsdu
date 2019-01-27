@@ -1,9 +1,9 @@
 {
-  "name": "dnsdu",
+  "name": "nameup",
   "version": "1.0.2",
   "description": "A DNS Dynamic Updater",
   "license": "MIT",
-  "repository": "https://github.com/taoyuan/dnsdu",
+  "repository": "https://github.com/taoyuan/nameup",
   "author": "Yuan Tao <towyuan@outlook.com>",
   "keywords": [
     "dns",
@@ -17,7 +17,7 @@
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "bin": {
-    "dnsdu": "./bin/dnsdu"
+    "nameup": "./bin/nameup"
   },
   "scripts": {
     "clean": "rimraf lib",
@@ -26,15 +26,15 @@
     "prebuild": "npm run clean && echo Using TypeScript && tsc --version",
     "build": "tsc --pretty",
     "test": "npm run build && nyc mocha --require ts-node/register --recursive \"test/**/*.test.ts\"",
-    "docker-build": "dopkg && docker build -t dnsdu/dnsdu:latest .",
-    "docker-push": "docker push dnsdu/dnsdu:latest",
+    "docker-build": "dopkg && docker build -t nameup/nameup:latest .",
+    "docker-push": "docker push nameup/nameup:latest",
     "docker-all": "npm run docker-build && npm run docker-push"
   },
   "dependencies": {
     "async-retry": "^1.2.3",
     "caporal": "^1.1.0",
     "dateformat": "^3.0.3",
-    "dnsm": "^0.2.0",
+    "namex": "^0.2.2",
     "external-ip": "^2.1.1",
     "fs-extra": "^7.0.1",
     "lodash": "^4.17.11",

@@ -1,12 +1,12 @@
 import * as path from "path";
-import { Executor } from "dnsm";
+import { Executor } from "namex";
 import sinon = require("sinon");
 import * as s from "./support";
 import { MockProvider } from "./mocks/mock-provider";
 import { Grabber, schedule } from "../src";
 import { assert } from "chai";
 
-process.env.DNSM_MOCK_TOKEN = process.env.DNSM_MOCK_TOKEN || 'dnsm-mock-token';
+process.env.DNSM_MOCK_TOKEN = process.env.DNSM_MOCK_TOKEN || 'namex-mock-token';
 
 describe("updater", function() {
   this.timeout(5000);

@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { execute } from "dnsm";
+import { execute } from "namex";
 import * as path from "path";
 import * as logs from "./logs";
 import { Grabber } from "./grabber";

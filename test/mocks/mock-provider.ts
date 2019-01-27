@@ -1,4 +1,4 @@
-import { BaseProvider, ProviderOptions, Logger, RecordData, RecordFilter, Record, RecordParams } from "dnsm";
+import { BaseProvider, ProviderOptions, Logger, RecordData, RecordFilter, Record, RecordParams } from "namex";
 
 export class MockProvider extends BaseProvider {
 
