@@ -1,6 +1,6 @@
 {
   "name": "nameup",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A DNS Dynamic Updater",
   "license": "MIT",
   "repository": "https://github.com/taoyuan/nameup",
