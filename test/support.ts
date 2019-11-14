@@ -1,6 +1,7 @@
 import * as chai from "chai";
 import * as chaiAsPromised from "chai-as-promised";
-import { Provider, ProviderOptions, Logger } from "namex";
+import { authFromEnv, Provider, ProviderOptions } from "namex";
+import * as _ from "lodash";
 
 // import * as sinon from "sinon";
 
@@ -17,8 +18,9 @@ export function buildIpFetcher(ips: string[] | string) {
 }
 
 export function buildProviderCreator<T extends Provider>(ProviderClass, cache?: T[]) {
-  return (provider: string, domain: string, opts: ProviderOptions, logger?: Logger): Provider => {
-    const p = new ProviderClass(domain, opts, logger);
+  return (provider: string, domain: string, opts: ProviderOptions): Provider => {
+    opts = _.defaults(Object.assign({}, opts), authFromEnv(provider));
+    const p = new ProviderClass(domain, opts);
     cache && cache.push(p);
     return p;
   }

@@ -6,7 +6,7 @@ import { MockProvider } from "./mocks/mock-provider";
 import { Grabber, schedule } from "../src";
 import { assert } from "chai";
 
-process.env.DNSM_MOCK_TOKEN = process.env.DNSM_MOCK_TOKEN || 'namex-mock-token';
+process.env.DNS_MOCK_TOKEN = process.env.DNS_MOCK_TOKEN || '0000000';
 
 describe("updater", function() {
   this.timeout(5000);
@@ -16,7 +16,7 @@ describe("updater", function() {
 
   before(() => {
     stubCreateProvider = sinon.stub(Executor, "createProvider");
-    stubEnvToken = sinon.stub(process.env, "DNSM_MOCK_TOKEN");
+    stubEnvToken = sinon.stub(process.env, "DNS_MOCK_TOKEN");
     stubEnvToken.value('1234567890');
   });
 

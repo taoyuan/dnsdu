@@ -8,15 +8,14 @@ describe("grabber", function() {
 
   describe("grab", () => {
 
-
     it("should grab external ip", async () => {
-      const ip = await Grabber.create().grab();
+      const ip = await Grabber.create({timeout: 3000}).grab();
       assert.ok(isip(ip));
     });
 
     it("should throw ECONNREFUSED for invalid service", async () => {
       const g = Grabber.create({ timeout: 100, services: ["http://localhost/invalid"] });
-      await assert.isRejected(g.grab(1), /Got invalid IP/);
+      await assert.isRejected(g.grab(1), /ECONNREFUSED/);
     });
 
     it("should callback ip when it changed", (done) => {

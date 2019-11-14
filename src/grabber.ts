@@ -7,7 +7,13 @@ import retry = require("async-retry");
 import { ensureDir, etcdir, JobComplete, schedule } from "./utils";
 import * as path from "path";
 
-const DEFAULT_SERVICES = ["http://ifconfig.io/ip", "http://me.gandi.net", "https://api.ipify.org"];
+const DEFAULT_SERVICES = [
+  "https://ipily.herokuapp.com/",
+  "http://ifconfig.io/ip",
+  "http://me.gandi.net",
+  "https://api.ipify.org"
+];
+
 const DEFAULT_HOSTFILE = path.join(etcdir(), "host.json");
 
 export type Interval = number | string;

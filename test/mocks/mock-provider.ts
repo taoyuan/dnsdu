@@ -1,11 +1,19 @@
-import { BaseProvider, ProviderOptions, Logger, RecordData, RecordFilter, Record, RecordParams } from "namex";
+import {
+  AbstractProvider,
+  ProviderOptions,
+  RecordData,
+  RecordFilter,
+  Record,
+  RecordParams,
+  registerProvider
+} from "namex";
 
-export class MockProvider extends BaseProvider {
+export class MockProvider extends AbstractProvider {
 
   requests: any[] = [];
 
-  constructor(domain: string, opts: ProviderOptions, logger?: Logger) {
-    super(domain, opts, logger);
+  constructor(domain: string, opts: ProviderOptions) {
+    super('mock', domain, opts);
   }
 
   protected async _authenticate(): Promise<any> {
@@ -25,8 +33,11 @@ export class MockProvider extends BaseProvider {
     this.requests.push(['update', [identifier, params]]);
   }
 
-  protected async _delete(identifier: string, params?: RecordFilter): Promise<void> {
+  protected async _delete(identifier: string, params?: RecordFilter): Promise<number> {
     this.requests.push(['delete', [identifier, params]]);
+    return 0;
   }
 
 }
+
+registerProvider('mock', MockProvider);
